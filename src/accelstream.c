@@ -14,7 +14,7 @@ static int latest_data[3 * NUM_SAMPLES];
 static int UP = 1;
 static int DOWN = 2;
 static int SELECT = 3;
-static int NONE = 0;
+static int NONE = 4;
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   PRESSED_BUTTON = SELECT;
@@ -59,10 +59,11 @@ static void send_next_data()
 {
 	DictionaryIterator *iter;
 	app_message_outbox_begin(&iter);
-
-	for(int i = 0; i < NUM_SAMPLES; i++)
+    int i;
+    int j;
+	for( i = 0; i < NUM_SAMPLES; i++)
 	{
-		for(int j = 0; j < 3; j++)
+		for(j = 0; j < 3; j++)
 		{
 			int value = 0 + latest_data[(3 * i) + j];
 			Tuplet t = TupletInteger((3 * i) + j, value);
@@ -70,9 +71,11 @@ static void send_next_data()
 		}
 	}
     
-    Tuplet t = TupletInteger(NUM_SAMPLES * 3 + 3, PRESSED_BUTTON);
+    int pressed = PRESSED_BUTTON;
+    Tuplet t = TupletInteger(i * 3 + j, pressed);
     dict_write_tuplet(iter, &t);
 	
+    PRESSED_BUTTON = NONE;
 	app_message_outbox_send();
 }
 
@@ -132,7 +135,8 @@ void messagesInit(){
 	int in_size = app_message_inbox_size_maximum();
 	int out_size = app_message_outbox_size_maximum();
 	app_log(APP_LOG_LEVEL_INFO, "C", 0, "I/O Buffer: %d/%d", in_size, out_size);
-	app_message_open(in_size, out_size);
+// 	app_message_open(in_size, out_size);
+    app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 
 }
 
@@ -175,6 +179,8 @@ static void init(void)
 
     messagesInit();
 	window_stack_push(window, true);
+    
+    
 }
 
 static void deinit(void) 
