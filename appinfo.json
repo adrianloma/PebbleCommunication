@@ -1,20 +1,22 @@
 {
     "appKeys": {
-        "message": 1,
-        "status": 0
+        "KEY_START": 0,
+        "KEY_X": 0,
+        "KEY_Y": 1,
+        "KEY_Z": 2
     },
     "capabilities": [
-        ""
+        "configurable"
     ],
-    "companyName": "adrian.loma@gmail.com",
-    "longName": "Communication",
+    "companyName": "Chris Lewis",
+    "longName": "AccelStream",
     "projectType": "native",
     "resources": {
         "media": []
     },
-    "sdkVersion": "3",
-    "shortName": "Communication",
-    "uuid": "5f4ba5e9-d053-444e-bc29-1ee75a976029",
+    "sdkVersion": "2",
+    "shortName": "AccelStream",
+    "uuid": "2893b0c4-2bca-4c83-a33a-0ef6ba6c8b17",
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
