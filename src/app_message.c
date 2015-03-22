@@ -1,11 +1,5 @@
-#include <pebble.h>
 #include <Messages.h>
-    
 Window *window;	
-	
-
-
-
 
 void init(void) {
 	window = window_create();
